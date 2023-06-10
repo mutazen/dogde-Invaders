@@ -56,7 +56,8 @@ const STAGES = {
         clase: 'wall'
       }
     ],
-    time: 100
+    time: 100,
+    backgroundImage: 'url(./assets/graphics/bg-game1_1.png)'
   },
 
   stage2: {
@@ -99,31 +100,72 @@ const STAGES = {
     },
     obstacles: [
       {
-        top: 0,
+        top: 25,
         left: 0,
-        width: 400,
-        height: 120,
+        width: 410,
+        height: 72,
         id: 'obstacle1',
-        clase: 'obstacle01'
+        clase: 'obstacle02'
+      },
+      {
+        top: 55,
+        left: 0,
+        width: 410,
+        height: 72,
+        id: 'obstacle2',
+        clase: 'obstacle02'
       },
       {
         top: 120,
         left: 470,
         width: 80,
-        height: 80,
-        id: 'obstacle2',
+        height: 72,
+        id: 'obstacle3',
         clase: 'obstacle02'
       },
       {
-        top: 400,
-        left: 120,
-        width: 520,
-        height: 80,
-        id: 'obstacle3',
+        top: 150,
+        left: 450,
+        width: 80,
+        height: 72,
+        id: 'obstacle4',
+        clase: 'obstacle02'
+      },
+      {
+        top: 430,
+        left: 140,
+        width: 500,
+        height: 50,
+        id: 'obstacle5',
         clase: 'obstacle04'
+      },
+      {
+        top: 405,
+        left: 140,
+        width: 500,
+        height: 50,
+        id: 'obstacle6',
+        clase: 'obstacle04'
+      },
+      {
+        top: 380,
+        left: 140,
+        width: 500,
+        height: 50,
+        id: 'obstacle7',
+        clase: 'obstacle04'
+      },
+      {
+        top: 0,
+        left: 0,
+        width: 640,
+        height: 70,
+        id: 'obstacle8',
+        clase: 'wall'
       }
     ],
-    time: 100
+    time: 100,
+    backgroundImage: 'url(./assets/graphics/bg-game2_1.png)'
   },
 
   stage3: {
@@ -149,7 +191,7 @@ const STAGES = {
         path: [{ direction: 3, times: 50 }, { direction: 1, times: 50 }]
       },
       {
-        top: 350,
+        top: 330,
         left: 370,
         id: 'enemy3',
         cssClass: 'enemy03',
@@ -166,29 +208,79 @@ const STAGES = {
     obstacles: [
       {
         top: 100,
-        left: 360,
-        width: 120,
-        height: 120,
+        left: 380,
+        width: 150,
+        height: 50,
         id: 'obstacle1',
         clase: 'obstacle05'
       },
       {
-        top: 400,
+        top: 135,
+        left: 360,
+        width: 150,
+        height: 50,
+        id: 'obstacle2',
+        clase: 'obstacle05'
+      },
+      {
+        top: 170,
+        left: 400,
+        width: 150,
+        height: 50,
+        id: 'obstacle3',
+        clase: 'obstacle05'
+      },
+      {
+        top: 385,
         left: 0,
         width: 540,
-        height: 80,
-        id: 'obstacle2',
-        clase: 'obstacle07'
+        height: 90,
+        id: 'obstacle4',
+        clase: 'obstacle03'
+      },
+      {
+        top: 355,
+        left: 20,
+        width: 490,
+        height: 90,
+        id: 'obstacle5',
+        clase: 'obstacle03'
       },
       {
         top: 250,
-        left: 200,
-        width: 80,
-        height: 80,
-        id: 'obstacle3',
-        clase: 'obstacle04'
+        left: 180,
+        width: 100,
+        height: 50,
+        id: 'obstacle6',
+        clase: 'obstacle06'
+      },
+      {
+        top: 275,
+        left: 180,
+        width: 100,
+        height: 50,
+        id: 'obstacle7',
+        clase: 'obstacle06'
+      },
+      {
+        top: 300,
+        left: 180,
+        width: 100,
+        height: 50,
+        id: 'obstacle8',
+        clase: 'obstacle06'
+      },
+      {
+        top: 0,
+        left: 0,
+        width: 640,
+        height: 70,
+        id: 'obstacle9',
+        clase: 'wall'
       }
+
     ],
-    time: 100
+    time: 100,
+    backgroundImage: 'url(./assets/graphics/bg-game3_1.png)'
   }
 }

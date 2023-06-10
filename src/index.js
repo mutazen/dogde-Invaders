@@ -1,6 +1,7 @@
 // CREATE PLAYER
 const player = new Player(0, 0, document.getElementById('player'))
 const goal = new Goal(100, 100, document.getElementById('goal'))
+const canvasHTML = document.getElementById('canvas')
 
 let enemies
 let timerId
@@ -15,25 +16,17 @@ const effectHit = new Audio('https://venturedesigner.github.io/project1-grupo4/a
 const effectHitWall = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/hitWall.wav')
 const effectFail = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/gameOver.wav')
 
+
 const canvas = {
   width: 640,
   height: 480
 }
 
+
+
+
 let level = 1
 const finalLevel = 3
-
-// COLLISIONS
-/*function collision (targetObj, collidedObj) {
-  if ((targetObj.left < collidedObj.left + collidedObj.width) &&
-    (targetObj.top < collidedObj.top + collidedObj.height) &&
-    (collidedObj.left < targetObj.left + targetObj.width) &&
-    (collidedObj.top < targetObj.top + targetObj.height)) {
-    return true
-  } else {
-    return false
-  }
-}*/
 
 function collision (targetObj, collidedObj) {
   const targetObjtop2D = targetObj.top + ((targetObj.height * 3) / 4)
@@ -75,7 +68,6 @@ function collisionEnemies (targetObj, enemies) {
 function collisionObstacles (targetObj, obstacles) {
   for (let i = 0; i < obstacles.length; i++) {
     if (collision(targetObj, obstacles[i]) === true) {
-      console.log('collision')
       return true
     }
   }
@@ -84,6 +76,7 @@ function collisionObstacles (targetObj, obstacles) {
 
 // STAR GAME FUNCTION
 function startGame (level) {
+
   const intro = document.getElementById('intro')
   intro.style.display = 'none'
   const endGameLMsg = document.getElementById('endGame')
@@ -94,19 +87,24 @@ function startGame (level) {
   nextLevelMsg.style.display = 'none'
   const overlay = document.getElementById('overlay')
   overlay.style.display = 'none'
+
   currentStage = STAGES[`stage${level}`]
   countDown = currentStage.time
+  canvasHTML.style.backgroundImage = currentStage.backgroundImage
   player.top = currentStage.player.top
   player.left = currentStage.player.left
   player.updatePosition()
+  document.getElementById('timer').innerText = 'Time'
 
   enemies = []
   for (let i = 0; i < currentStage.enemies.length; i++) {
     enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].cssClass, currentStage.enemies[i].path, currentStage.enemies[i].distance))
     enemies[i].create()
   }
+
   goal.top = currentStage.goal.top
   goal.left = currentStage.goal.left
+
   goal.updatePosition()
 
   obstacles = []
@@ -122,8 +120,10 @@ function startGame (level) {
     ))
     obstacles[i].create()
   }
+
   bgMusic.play()
   bgMusic.loop = true
+
   clearInterval(clock)
   setTime()
   animate()
@@ -151,6 +151,7 @@ function setLife () {
 
 // ANIMATE GAME FUNCTION
 function animate() {
+
   timerId = setInterval(function () {
     if (player.direction !== 0) {
       const playerNextPos = player.getNextPosition()
@@ -159,16 +160,17 @@ function animate() {
         effectHit.play()
         effectFail.play()
         retry()
-      } else if (collisionCanvas(playerNextPos) === true) {
+      } else if (collisionCanvas(playerNextPos) === true || collisionObstacles(playerNextPos, obstacles) === true) {
         effectHitWall.play()
+        if (player.orientation !== player.direction)  {
+          player.orientation = player.direction
+          player.changeOrientation()
+          player.changeAnimation()
+        }
         player.direction = 0
       } else if (collision(playerNextPos, currentStage.goal) === true) {
         effectGoal.play()
         winLevel()
-      } else if (collisionObstacles(playerNextPos, obstacles) === true) {
-        console.log(player.direction)
-        player.direction = 0
-        effectHitWall.play()
       } else {
         player.move()
       }
@@ -186,21 +188,9 @@ function animate() {
         }
       }
     }
-
-    for (let i = 0; i < enemies.length; i++) {
-      if (enemies[i].getDirection !== 0) {
-        const enemyNextPos = enemies[i].getNextPosition()
-        if (collision(enemyNextPos, player)) {
-          effectHit.play()
-          effectFail.play()
-          retry()
-        } else {
-          enemies[i].move()
-        }
-      }
-    }
   }, 20)
 }
+
 
 // GAME OVER FUNCTION
 function gameOver () {
@@ -223,7 +213,7 @@ function gameOver () {
 function retry () {
   if (player.lifes === 0) {
     gameOver()
-    document.getElementById('timer').innerText = ''
+    document.getElementById('timer').innerText = 'Time'
     player.lifes = 3
     level = 1
     const intro = document.getElementById('intro')
@@ -232,7 +222,7 @@ function retry () {
     const container = document.getElementById('life-container')
     const lifeElement = document.getElementById(`life${player.lifes}`)
     container.removeChild(lifeElement)
-    document.getElementById('timer').innerText = ''
+    document.getElementById('timer').innerText = 'Time'
     for (let i = 0; i < enemies.length; i++) {
       enemies[i].destroyEnemy()
     }
@@ -251,7 +241,7 @@ function winLevel () {
   clearInterval(clock)
   clearInterval(timerId)
   clearInterval(clock)
-  document.getElementById('timer').innerText = ''
+  document.getElementById('timer').innerText = 'Time'
   const winLevalMsg = document.getElementById('nextLevel')
   const endGameLMsg = document.getElementById('endGame')
   const overlay = document.getElementById('overlay')
@@ -290,7 +280,7 @@ function setTime () {
       for (let i = 0; i < obstacles.length; i++) {
         obstacles[i].destroy()
       }
-      document.getElementById('timer').innerText = ''
+      document.getElementById('timer').innerText = 'Time'
       startGame(level)
     } else {
       document.getElementById('timer').innerText = 'Time ' + countDown
@@ -329,7 +319,7 @@ nextLevelButton.onclick = nextLevel
 const nextLevelMsg = document.getElementById('nextLevel')
 const introMsg = document.getElementById('intro')
 
-window.addEventListener('keydown', function (e) {
+window.addEventListener('keyPress', function (e) {
   if (e.code === 'Enter' && nextLevelMsg.style.display === 'block') {
     nextLevel()
   } else if (e.code === 'Enter' && introMsg.style.display === 'block') {

@@ -80,34 +80,30 @@ body {
 }
 
 .obstacle02 {
-  background-image:url(../assets/graphics/obstacle02.png);
+  background-image:url(../assets/graphics/obs-icePilar-01.png);
   position: absolute;
 }
 
-
 .obstacle03 {
-  background-image:url(../assets/graphics/obstacle03.png);
+  background-image:url(../assets/graphics/obs-tallStalagmite-01.png);
   position: absolute;
 }
 
 .obstacle04 {
-  background-image:url(../assets/graphics/obstacle04.png);
+  background-image:url(../assets/graphics/obs-cargoBox-01.png);
   position: absolute;
 }
 
 .obstacle05 {
-  background-image:url(../assets/graphics/obstacle05.png);
+  background-image:url(../assets/graphics/obs-smallStalagmite-01.png);
   position: absolute;
 }
 
 .obstacle06 {
-  background-image:url(../assets/graphics/obstacle06.png);
+  background-image: url(../assets/graphics/obs-cargoBox-02.png);
   position: absolute;
 }
-.obstacle07 {
-  background-image:url(../assets/graphics/obstacle07.png);
-  position: absolute;
-}
+
 
 #goal {
   background-image: url(../assets/graphics/door.gif);
@@ -128,11 +124,14 @@ body {
   right: 25px;
   margin: 0;
   position: absolute;
-  border-radius: 15px;
   color: white;
-  text-align:center;
-  font-size: 13px;
-  z-index: 1
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+  z-index: 400;
+  -webkit-text-stroke: 1px black;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .life {
@@ -213,10 +212,6 @@ h1 {
   color: white;
 }
 
-.score {
-  font-family: 'Press Start 2P', cursive;
-}
-
 .myButton {
   box-shadow: 3px 4px 0px 0px #1564ad;
 	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
@@ -269,9 +264,8 @@ h1 {
   height: 20px;
   top: 18px;
   left: 27px;
-  z-index: 1;
+  z-index: 400;
 }
-
 
 .frame {
   border: 10px solid #4a1274;

@@ -15,6 +15,7 @@ function Obstacle (top, left, width, height, id, clase) {
     this.elem.style.left = this.left + 'px'
     this.elem.style.width = this.width + 'px'
     this.elem.style.height = this.height + 'px'
+    this.elem.style.zIndex = this.top + this.height
     const canvas = document.getElementById('canvas')
     canvas.appendChild(this.elem)
     this.elem = document.getElementById(this.id)

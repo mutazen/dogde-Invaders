@@ -7,6 +7,8 @@ function Player (top, left, elem) {
   this.elem = elem
   this.distance = 6
   this.direction = 0
+  this.orientation = 0
+  this.startMoving = 0
   this.lifes = 3
   this.widthOfSpriteSheet = 150
   this.widthOfEachSprite = 48
@@ -30,26 +32,40 @@ Player.prototype.updatePosition = function () {
 Player.prototype.setDirection = function (value) {
   switch (value) {
     case 'ArrowUp':
-      this.spriteHeight = this.startedPositionSheetHeight + ((10 + 62) * 3)
       this.direction = 1
       break
     case 'ArrowRight':
-      this.spriteHeight = this.startedPositionSheetHeight + ((10 + 62) * 2)
       this.direction = 2
       break
     case 'ArrowDown':
-      this.spriteHeight = this.startedPositionSheetHeight
       this.direction = 3
       break
     case 'ArrowLeft':
-      this.spriteHeight = this.startedPositionSheetHeight + (10 + 62)
       this.direction = 4
+      break
+  }
+}
+
+Player.prototype.changeOrientation = function () {
+  switch (this.orientation) {
+    case 1:
+      this.spriteHeight = this.startedPositionSheetHeight + ((10 + 62) * 3)
+      break
+    case 2:
+      this.spriteHeight = this.startedPositionSheetHeight + ((10 + 62) * 2)
+      break
+    case 3:
+      this.spriteHeight = this.startedPositionSheetHeight
+      break
+    case 4:
+      this.spriteHeight = this.startedPositionSheetHeight + (10 + 62)
       break
   }
 }
 
 // Player move
 Player.prototype.move = function () {
+
   switch (this.direction) {
     case 1:
       this.top -= this.distance
@@ -64,20 +80,23 @@ Player.prototype.move = function () {
       this.left -= this.distance
       break
   }
+
+  this.orientation = this.direction
   this.updatePosition()
+  this.changeOrientation()
   this.changeAnimation()
   this.direction = 0
-  console.log(this.direction)
 }
 
 Player.prototype.changeAnimation = function () {
   if (this.position < this.widthOfSpriteSheet) {
     this.position += this.widthOfEachSprite
   } else {
-    console.log('loop')
     this.position = this.startedPositionSheetWidth
   }
   this.elem.style.backgroundPosition = `-${this.position}px -${this.spriteHeight}px`
+
+  this.elem.style.zIndex = this.top + this.height
 }
 
 Player.prototype.getNextPosition = function () {

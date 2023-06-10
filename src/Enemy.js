@@ -58,6 +58,7 @@ Enemy.prototype.move = function () {
 
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
+  this.elem.style.zIndex = this.top + this.height
   this.shadow.top = this.top + this.height * 0.9
   this.shadow.left = this.left
   this.shadow.updatePosition()
