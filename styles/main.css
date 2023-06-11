@@ -126,7 +126,7 @@ body {
   position: absolute;
   color: white;
   text-align: left;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: bold;
   z-index: 400;
   -webkit-text-stroke: 1px black;
